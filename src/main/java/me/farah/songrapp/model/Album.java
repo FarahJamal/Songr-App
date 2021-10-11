@@ -5,7 +5,17 @@ package me.farah.songrapp.model;
 *  a length (in seconds),
 *  and an imageUrl that is a link to that album’s art.
 * */
+
+import javax.persistence.*;
+
+
+
+@Entity
 public class Album {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
+    private Long id;
     private  String title;
     private  String artist;
     private  int songCount;
@@ -18,6 +28,10 @@ public class Album {
         this.songCount = songCount;
         this.length = length;
         this.imageUrl = imageUrl;
+    }
+
+    public Album() {
+
     }
 
     public String getTitle() {

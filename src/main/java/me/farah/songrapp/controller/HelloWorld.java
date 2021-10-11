@@ -1,21 +1,23 @@
 package me.farah.songrapp.controller;
-import com.sun.org.apache.xpath.internal.operations.Or;
 import me.farah.songrapp.model.Album;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import me.farah.songrapp.repository.AlbumRepo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.reactive.result.view.RedirectView;
 
 import java.util.*;
 
 
 @Controller
 public class HelloWorld {
+    @Autowired
+    private AlbumRepo repository;
 
-    @PostMapping("/hello")
+    @GetMapping("/hello")
     public String test(@RequestParam(name = "name", required = false, defaultValue = "Guest") String name,
                        Model model) {
         model.addAttribute("name", name); // this is passed to the template automatically
@@ -33,19 +35,9 @@ public class HelloWorld {
         return "splash";
     }
 
-    @GetMapping("/album")
-    public String getAlbum(Model model) {
 
-        Album Origins = new Album("Origins", "Imagine Dragons", 13, 4000, "https://bloximages.newyork1.vip.townnews.com/kentwired.com/content/tncms/assets/v3/editorial/1/02/10251604-e847-11e8-a68c-ebe02c431a82/5bec7d8ba5878.image.jpg");
-        Album Night_Visions = new Album("Night_Visions", "Imagine Dragons", 11, 3500, "https://upload.wikimedia.org/wikipedia/en/3/3f/Night_Visions_Album_Cover.jpeg");
-        Album Native = new Album("Native", "OneRepublic", 17, 2800, "https://cdns-images.dzcdn.net/images/cover/63bb716faf92942d967f5c053fc8720c/500x500.jpg");
-        List<Album> albums = new ArrayList<Album>();
-        albums.add(Origins);
-        albums.add(Night_Visions);
-        albums.add(Native);
-        model.addAttribute("albums", albums);
-        return "albumCards";
-    }
+
+
 
     // stretch goals
     @GetMapping("/numbers/{number}")

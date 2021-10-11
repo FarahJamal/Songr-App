@@ -6,5 +6,27 @@
 </head>
 <body>
 <p th:text="'Hello, ' + ${name} + '!'">ok</p>
+
+<form action="/v2/album" method="post">
+    <fieldset>
+        Artist/Band Name:  <input type="text" name="artist">
+        Album Title:  <input type="text" name="title">
+        Album Track Count:  <input type="number" name="songCount">
+        Album Length in seconds:  <input type="number" name="length">
+        Album Thumbnail:  <input type="text" name="imageUrl">
+        <input type="submit" value="add-album">
+    </fieldset>
+</form>
+<div class="card" th:each="album :${albums}"  >
+
+    <h1 th:text="${album.title}"></h1>
+    <img th:src="${album.imageUrl}" alt="Avatar" style="width:100%;" height="200">
+    <div class="container">
+        <h4 th:text="${album.artist}"></h4>
+        <p th:text="${album.songCount}"></p> songs
+        <p th:text="${album.length}" > </p> seconds
+    </div>
+
+</div>
 </body>
 </html>
