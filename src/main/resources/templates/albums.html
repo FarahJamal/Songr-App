@@ -1,28 +1,43 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Create Albums</title>
+    <title>Albums</title>
 </head>
 <body>
+<div>
+    <form action="/albums"  method="post" >
+        <p>Title</p><input type="text" name="title" required/></br>
+        <p>Artist</p><input type="text" name="artist" required /></br>
+        <p>Song Count</p><input type="number" name="songCount" required/></br>
+        <p>Length</p><input type="number" name="length" required/></br>
+        <p>imageUrl</p><input type="text" name="imageUrl" required/></br>
+        <button type="submit">Submit</button>
+    </form>
+</div>
 
-<form action="/albums" method="post">
-    <fieldset>
-        <legend>Add Album</legend>
-        <input type="text" name="title">
-        <input type="text" name="artist">
-        <input type="text" name="songCount">
-        <input type="text" name="length">
-        <input type="text" name="imgUrl">
-        <input type="submit" value="Add Album">
-    </fieldset>
+<ul class="Album" th:each="album : ${albums}">
+    <li th:text="'ID:  '+${album.id}"></li>
+
+    <li th:text="'Title: ' + ${album.title}"></li>
+    <li th:text="'Artist: ' + ${album.artist}"></li>
+    <li th:text="'Song Count: ' + ${album.songCount}"></li>
+    <li th:text="'Length: ' + ${album.length} +'sec'"></li>
+    <img th:src="${album.imageUrl}"/>
+<!--    <button th:href="${'/delete/' + album.id}">Delete</button>-->
+<form th:action="${'/edit/'+ album.id}" method="get">
+
+    <button>edit</button>
+
 </form>
 
-<ul th:each="album : ${albums}">
-    <li th:text="'Album Name: ' + ${album.title}"></li>
-    <li th:text="'Author: ' + ${album.artist}"></li>
-    <li th:text="'Number of Songs: ' + ${album.songCount}"></li>
-    <li><img th:src="${album.imageUrl}"  alt="test"></li>
+        <form th:action="${'/delete/'+ album.id}" method="post" >
+    <button type="submit">Delete album</button>
+</form>
+
+<!--    <td><a th:href="${'/edit/' + album.id}">Edit</a></td>-->
+
 </ul>
+
 </body>
 </html>

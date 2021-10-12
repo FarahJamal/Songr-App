@@ -7,7 +7,7 @@ package me.farah.songrapp.model;
 * */
 
 import javax.persistence.*;
-
+import java.util.List;
 
 
 @Entity
@@ -15,12 +15,15 @@ public class Album {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private Long id;
+    private long id;
     private  String title;
     private  String artist;
     private  int songCount;
     private  double length;
     private  String imageUrl;
+
+    @OneToMany(mappedBy = "album")
+    private List<Song> songs;
 
     public Album(String title, String artist, int songCount, double length, String imageUrl) {
         this.title = title;
@@ -34,6 +37,13 @@ public class Album {
 
     }
 
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public long getId() {
+        return id;
+    }
     public String getTitle() {
         return title;
     }
