@@ -9,6 +9,7 @@ import java.util.*;
 
 @Repository
 public interface SongRepo extends JpaRepository<Song,Long> {
-    Song findByAlbumId(Long album_id);
+  List  <Song> findByAlbumId(Long album_id);
+List<Song> findAllByAlbum_Title(String title);
 
 }

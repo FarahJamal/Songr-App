@@ -22,7 +22,7 @@ public class Album {
     private  double length;
     private  String imageUrl;
 
-    @OneToMany(mappedBy = "album")
+    @OneToMany(mappedBy = "album",cascade= { CascadeType.REMOVE })
     private List<Song> songs;
 
     public Album(String title, String artist, int songCount, double length, String imageUrl) {

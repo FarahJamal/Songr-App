@@ -8,9 +8,17 @@
 <form action="/songs" method="post">
 
     <div class="mb-3">
-        <label class="form-label">Album Title</label>
-        <input type="text" class="form-control" name="album">
+<!--        <input type="text" class="form-control" name="album">-->
+        <select class="form-control" id="album" name="album" >
+            <option selected>Selection</option>
+            <option th:each="status : ${albums}"
+                    th:text="${status.title}"
+                    th:value="${status.title}"></option>
+        </select>
+
     </div>
+
+
     <div class="mb-3">
         <label class="form-label">Song Title</label>
         <input type="text" class="form-control" name="title">
@@ -27,6 +35,8 @@
 <div class="row">
     <div class="col text-center d-flex justify-content-center" th:each="song : ${songs}">
         <div class="card" style="width: 18rem;">
+
+
             <img th:src="${song.album.imageUrl}" class="card-img-top" alt="album image">
 
             <div class="card-body">

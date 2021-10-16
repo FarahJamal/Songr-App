@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Single Post</title>
+</head>
+<body>
+
+
+
+<ul th:each="post: ${albumSongs}">
+    <p> Author <span th:text="${post.title}"></span></p>
+    <p> Content <span th:text="${post.album.title}"></span></p>
+    <p> Created <span th:text="${post.length}"></span></p>
+</ul>
+
+</body>
+</html>

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.validation.BindingResult;
+import org.springframework.transaction.annotation.Transactional;
 @Controller
 public class AlbumsController {
 
@@ -39,19 +40,11 @@ public class AlbumsController {
 
 
     @PostMapping("/edit/{id}")
-    public String updateEmployee(@PathVariable(value = "id") Long albumId,
-                                                @ModelAttribute Album albumDetails)  throws NotFoundEception {
+    public String updateAlbum(@PathVariable(value = "id") Long albumId, @ModelAttribute Album albumDetails)  throws NotFoundEception {
         Album album = albumRepository.findById(albumId).orElseThrow(()-> new NotFoundEception("Album not found for this id :: " + albumId));
-//album.setArtist(albumDetails.getArtist());
-//        album.setLength(albumDetails.getLength());
-//        album.setImageUrl(albumDetails.getImageUrl());
-//        album.setTitle(albumDetails.getTitle());
-//        album.setSongCount(albumDetails.getSongCount());
-
-         Album updatedAlbum = albumRepository.save(album);
+        Album updatedAlbum = albumRepository.save(album);
         return "redirect:/albums";
     }
-
     @GetMapping("/edit/{id}")
     public String showUpdateForm(@PathVariable("id") long id, Model model) {
         Album album = albumRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid Album Id:" + id));
@@ -59,6 +52,8 @@ public class AlbumsController {
 
         return "updateAlbum";
     }
+
+
 
     @PostMapping("/update/{id}")
     public String updateUser(@PathVariable("id") long id, @Valid Album album, BindingResult result) {
@@ -71,31 +66,5 @@ public class AlbumsController {
 
         return "redirect:/albums";
     }
-
-
-
-
-
-
-
-
-
-
-
-    /**
-     *     @PutMapping("/edit/{id}")
-     *     public String updateEmployee(@PathVariable(value = "id") Long albumId,
-     *                                                 @ModelAttribute Album albumDetails,Model model)  throws NotFoundEception {
-     *         Album album = albumRepository.findById(albumId).orElseThrow(()-> new NotFoundEception("Album not found for this id :: " + albumId));
-     * album.setArtist(albumDetails.getArtist());
-     *         album.setLength(albumDetails.getLength());
-     *         album.setImageUrl(albumDetails.getImageUrl());
-     *         album.setTitle(albumDetails.getTitle());
-     *         album.setSongCount(albumDetails.getSongCount());
-     * model.addAttribute("albums",albumRepository.findById(albumId));
-     *         albumRepository.save(albumDetails);
-     *         return "redirect:/albums";
-     *     }
-     * */
 
 }
